@@ -1,0 +1,19 @@
+@font-face {font-family: C; src: url('CodeNewRomanNerdFont-Regular.otf');}
+
+.text {
+  font-size: 20px;
+  color: #cdd6f4;
+  margin: 30px;
+  font-family: C;
+}
+
+.background-text {
+  font-family: C;
+  z-index: -2;
+  font-size: 60px;
+  font-weight: bold;
+  color: #31324460;
+  text-align: center;
+  margin-top: 200px;
+}
+

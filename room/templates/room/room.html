@@ -1,0 +1,122 @@
+{% extends 'core/index.html' %}
+
+{% block title %} | {{ room.name }} {% endblock %}
+
+{% block content %}
+
+{% load static %}
+<link rel = "stylesheet" type="text/css" href = "{% static 'room/room.css' %}">
+<script src = "{%static 'room/snow.js' %}"></script>
+
+<div class = "room-page">
+  <div class = "left">
+    <div class = "title">{{ room.name }}</div>
+
+    <div id = "chat-messages">
+      <div class = "message-system">
+        <div class = "message-author">System</div>
+        <div class = "message-content">Dis is the beninging of dis chat</div>
+      </div>
+      {% for message in messages %}
+        <div class = "message">
+	  {% if message.user == request.user %}
+	    <div class = "author-and-delete">
+  	      <div class = "message-author">{{ message.user.username }}</div>
+	      <div class = "delete-message"><a href = "{% url 'delete-message' message.id %}">Delete</a></div>
+	    </div>
+            <div class = "message-content">{{ message.content }}</div>
+	  {% else %}
+  	    <div class = "message-author">{{ message.user.username }}</div>
+            <div class = "message-content">{{ message.content }}</div>
+	  {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+ 
+    <div class = "form">
+      <form method = "post" action = ".">
+        {% csrf_token %}
+        <label class = "input-label" for = "chat-message-input"><b>⮞</b></label>
+        <input class = "input" type = "text" name = "content" placeholder = " Insert sus message here.." id = "chat-message-input" autocomplete = "off">
+        <button id = "chat-message-submit">Throw</button>
+      </form>
+    </div>
+  </div>
+  <div class = "right">
+    <div class = "members">
+      <div class = "users">Users</div>
+        {% for user in users %}
+	  <div class = "user">{{ user }}</div>
+        {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{{ room.slug|json_script:"json-roomname" }}
+{{ request.user.username|json_script:"json-username" }}
+{{ request.message|json_script:"json-message" }}
+
+<script>
+  const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
+  const userName = JSON.parse(document.getElementById('json-username').textContent);
+  const chatSocket = new WebSocket(
+    'ws://'
+    + window.location.host
+    + '/ws/'
+    + roomName
+    + '/'
+  );
+
+  chatSocket.onmessage = function(e) {
+    console.log('onmessage');
+
+    const data = JSON.parse(e.data);
+
+    if (data.message) {
+      let html = '<div class = "message"><div class = "message-author">' + data.username + '</div>';
+        html += '<div class = "message-content">' + data.message + '</div></div>';
+
+      document.querySelector('#chat-messages').innerHTML += html;
+
+      scrollToBottom();
+
+    } else {
+      alert('Empty shit');
+    }
+  }
+
+  chatSocket.onclose = function(e) {
+    console.log('onclose')
+  }
+
+  document.querySelector('#chat-message-submit').onclick = function(e) {
+    e.preventDefault();
+
+    const messageInputDom = document.querySelector('#chat-message-input');
+    const message = messageInputDom.value;
+
+    chatSocket.send(JSON.stringify({
+      'message': message,
+      'username': userName,
+      'room': roomName
+    }));
+
+    messageInputDom.value = '';
+
+    return false;
+  }
+
+  function scrollToBottom() {
+    const objDiv = document.querySelector('#chat-messages');
+    objDiv.scrollTop = objDiv.scrollHeight;
+  }
+
+  scrollToBottom();
+
+</script>
+{% endblock %}
+
+

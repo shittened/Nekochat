@@ -1,0 +1,15 @@
+{% extends "core/index.html" %}
+
+{% block title %} | Welcome{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<link rel = "stylesheet" type="text/css" href = "{% static 'core/frontpage.css' %}">
+<script src = "{%static 'core/snow.js' %}"></script>
+
+<div class = "text">Welcome to <b><u>Nekochat</u></b>, a frendly chat webapp made by <b><u>Kiefciman</u></b> using Django.<br>Pls keep in mind that his is still a <b><u>work in progress</u></b>.<br>If some css not displaying properly, refresh the page with ctrl + F5.<br>Logout not working rn sorry.<br>No mobile css for now.
+<h3>Go to <u>ROOMS</u> to get started</h3>
+</div>
+<div class = "background-text">Do you fart?</div>
+{% endblock %}

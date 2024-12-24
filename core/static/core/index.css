@@ -1,0 +1,68 @@
+@font-face {font-family: C; src: url('CodeNewRomanNerdFont-Regular.otf');}
+
+body {
+  background-color: #1e1e2e;
+  color: #cdd6f4;
+}
+
+h1 {
+  font-size: 22;
+}
+
+.top-bar {
+  display: flex;
+  align-items: space-evenly;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #b4befe;
+}
+
+.top-bar-buttons {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+}
+
+.top-button {
+	
+}
+
+.top-button a {
+  text-decoration: none;
+  color: #1e1e2e;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 0 20px;
+  padding: 10px;
+  font-family: C;
+}
+
+.top-button a:hover {
+  background-color: #89b4fa;
+  text-decoration: underline;
+  text-decoration-color: #cdd6f4;
+  border-left: 3px solid #cdd6f4;
+  border-right: 3px solid #cdd6f4;
+}
+
+.nekochat-title {
+  margin: 0 20px;
+  padding: 5px;
+}
+
+.nekochat-title a {
+  font-weight: bold;
+  color: #1e1e2e;
+  text-decoration: none;
+  font-size: 26px;
+  padding: 5px;
+  font-family: C;
+}
+
+.nekochat-title a:hover {
+  background-color: #89b4fa;
+  text-decoration: underline;
+  text-decoration-color: #cdd6f4;
+  border-left: 3px solid #cdd6f4;
+  border-right: 3px solid #cdd6f4;
+}

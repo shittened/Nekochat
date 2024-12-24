@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset = "utf-8">
+    <meta-name = "viewport" content = "width="device-vidth, initial-scale = 1">
+    <title>Nekochat{% block title %}{% endblock %}</title>
+  </head>	
+  {% load static %}
+  <link rel = "stylesheet" type="text/css" href = "{% static 'core/index.css' %}">
+  <body>
+    <nav>
+      <div class = "top-bar">
+      <div class = "nekochat-title"><a href = "/">Nekochat</a></div>
+        <div class = "top-bar-buttons">
+          {% if user.is_authenticated %}
+  	    <div class = "top-button"><a href = "/rooms/">Rooms</a></div>
+            <div class = "top-button"><a href = "/signup/">Log out</a></div>
+	  {% else %}
+            <div class = "top-button"><a href = "/login/">Log in</a></div>
+            <div class = "top-button"><a href = "/signup/">Sign up</a></div>
+	  {% endif %}
+	</div>
+      </div>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+    {% block scripts %}
+    {% endblock %}
+
+  </body>
+</html>

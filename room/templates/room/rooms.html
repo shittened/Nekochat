@@ -1,0 +1,20 @@
+{% extends 'core/index.html' %}
+
+{% block title %} | Rooms {% endblock %}
+{% block content %}
+
+{% load static %}
+<link rel = "stylesheet" type="text/css" href = "{% static 'room/rooms.css' %}">
+<script src = "{%static 'room/snow.js' %}"></script>
+
+<div class = "title"><h1>Rooms</h1></div>
+<div class = "rooms">
+  {% for room in rooms %}
+    <div class = "room">
+      <div class = "room-name">{{ room.name }}</div>
+      <div class = "join-button"><a href = "{% url 'room' room.slug %}">Join</a></div>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
